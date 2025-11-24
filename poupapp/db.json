@@ -1,0 +1,10 @@
+{
+  "usuarios": [
+    {
+      "id": "1e7c",
+      "nome": "Victor",
+      "renda": "1000"
+    }
+  ],
+  "transacoes": []
+}
