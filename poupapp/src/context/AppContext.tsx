@@ -1,22 +1,33 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { criarUsuario, obterUsuario } from "../api";
-import { IUsuario } from "../types";
+import {
+  criarTransacao,
+  criarUsuario,
+  obterTransacoes,
+  obterUsuario,
+} from "../api";
+import { ITransacoes, IUsuario } from "../types";
 
 interface AppContextType {
   usuario: IUsuario | null;
-  criaUsuario?: (usuario: Omit<IUsuario, "id">) => Promise<void>;
+  criaUsuario: (usuario: Omit<IUsuario, "id">) => Promise<void>;
+  transacoes: ITransacoes[];
+  criaTransacao: (novaTransacao: Omit<ITransacoes, "id">) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [usuario, setUsuario] = useState<IUsuario | null>(null);
+  const [transacoes, setTransacoes] = useState<ITransacoes[]>([]);
 
   const carregaDadosUsuario = async () => {
     try {
       const usuarios = await obterUsuario();
+      const transacoes = await obterTransacoes();
+
       if (usuarios.length > 0) {
         setUsuario(usuarios[0]);
+        setTransacoes(transacoes);
       }
     } catch (error) {
       console.error("Erro ao carregar dados do usuário:", error);
@@ -36,8 +47,19 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const criaTransacao = async (novaTransacao: Omit<ITransacoes, "id">) => {
+    try {
+      const transacaoCriada = await criarTransacao(novaTransacao);
+      setTransacoes((prev) => [...prev, transacaoCriada]);
+    } catch (error) {
+      console.error("Erro ao criar transação:", error);
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ usuario, criaUsuario }}>
+    <AppContext.Provider
+      value={{ usuario, criaUsuario, transacoes, criaTransacao }}
+    >
       {children}
     </AppContext.Provider>
   );
@@ -47,6 +69,7 @@ export default AppProvider;
 
 export const useAppContext = () => {
   const context = useContext(AppContext);
+
   if (!context) {
     throw new Error("useAppContext deve ser usado dentro de um AppProvider");
   }
