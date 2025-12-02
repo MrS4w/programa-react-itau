@@ -4,7 +4,21 @@
       "id": "1e7c",
       "nome": "Victor",
       "renda": "1000"
+    },
+    {
+      "id": "5de0",
+      "nome": "Victor",
+      "renda": 0
     }
   ],
-  "transacoes": []
+  "transacoes": [
+    {
+      "id": "fe38",
+      "nome": "Livro React",
+      "valor": "100",
+      "tipo": "despesa",
+      "categoria": "Estudos",
+      "data": "2025-12-18"
+    }
+  ]
 }
