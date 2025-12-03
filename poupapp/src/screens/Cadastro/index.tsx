@@ -17,7 +17,7 @@ import {
 } from "./style.js";
 
 const Cadastro = () => {
-  const [form, setForm] = useState<Omit<IUsuario, "id">>({
+  const [form, setForm] = useState<Omit<IUsuario, "id" | "orcamentoDiario">>({
     nome: "",
     renda: 0,
   });

@@ -9,7 +9,9 @@ import { ITransacoes, IUsuario } from "../types";
 
 interface AppContextType {
   usuario: IUsuario | null;
-  criaUsuario: (usuario: Omit<IUsuario, "id">) => Promise<void>;
+  criaUsuario: (
+    usuario: Omit<IUsuario, "id" | "orcamentoDiario">
+  ) => Promise<void>;
   transacoes: ITransacoes[];
   criaTransacao: (novaTransacao: Omit<ITransacoes, "id">) => Promise<void>;
 }
@@ -29,6 +31,11 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         setUsuario(usuarios[0]);
         setTransacoes(transacoes);
       }
+      console.log(
+        "Dados do usuário e transações carregados com sucesso",
+        usuarios,
+        transacoes
+      );
     } catch (error) {
       console.error("Erro ao carregar dados do usuário:", error);
     }
@@ -38,7 +45,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     carregaDadosUsuario();
   });
 
-  const criaUsuario = async (usuario: Omit<IUsuario, "id">) => {
+  const criaUsuario = async (
+    usuario: Omit<IUsuario, "id" | "orcamentoDiario">
+  ) => {
     try {
       const novoUsuario = await criarUsuario(usuario);
       setUsuario(novoUsuario);

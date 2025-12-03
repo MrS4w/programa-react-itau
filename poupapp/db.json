@@ -1,24 +1,11 @@
 {
   "usuarios": [
     {
-      "id": "1e7c",
+      "id": "8f89",
       "nome": "Victor",
-      "renda": "1000"
-    },
-    {
-      "id": "5de0",
-      "nome": "Victor",
-      "renda": 0
+      "renda": "0121",
+      "orcamentoDiario": 4.033333333333333
     }
   ],
-  "transacoes": [
-    {
-      "id": "fe38",
-      "nome": "Livro React",
-      "valor": "100",
-      "tipo": "despesa",
-      "categoria": "Estudos",
-      "data": "2025-12-18"
-    }
-  ]
+  "transacoes": []
 }
