@@ -1,11 +1,21 @@
 {
   "usuarios": [
     {
-      "id": "8f89",
-      "nome": "Victor",
+      "id": "ae9d",
+      "nome": "Antonio",
       "renda": "0121",
-      "orcamentoDiario": 4.033333333333333
+      "orcamentoDiario": 3.033333333333333
     }
   ],
-  "transacoes": []
+  "transacoes": [
+    {
+      "id": "445b",
+      "nome": "compra",
+      "valor": 1,
+      "tipo": "despesa",
+      "categoria": "Pagamentos",
+      "data": "2025-12-12",
+      "userId": "ae9d"
+    }
+  ]
 }
