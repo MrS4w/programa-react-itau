@@ -4,6 +4,7 @@ import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { IEvento } from "../../interfaces/IEvento";
 import { listaDeEventosState } from "../../state/atom";
+import useAtualizarEvento from "../../state/hooks/useAtualizarEvento";
 import style from "./Calendario.module.scss";
 import ptBR from "./localizacao/ptBR.json";
 
@@ -19,6 +20,7 @@ const Calendario: React.FC = () => {
   const eventosKalend = new Map<string, IKalendEvento[]>();
 
   const eventos = useRecoilValue(listaDeEventosState);
+  const atualizarEvento = useAtualizarEvento();
 
   const setListaDeEventos = useSetRecoilState<IEvento[]>(listaDeEventosState);
 
@@ -49,14 +51,7 @@ const Calendario: React.FC = () => {
       };
       eventoAtualizado.inicio = new Date(kalendEventoAtualizado.startAt);
       eventoAtualizado.fim = new Date(kalendEventoAtualizado.endAt);
-      setListaDeEventos((listaAntiga) => {
-        const indice = listaAntiga.findIndex((e) => e.id === evento.id);
-        return [
-          ...listaAntiga.slice(0, indice),
-          eventoAtualizado,
-          ...listaAntiga.slice(indice + 1),
-        ];
-      });
+      atualizarEvento(eventoAtualizado);
     }
   };
 
