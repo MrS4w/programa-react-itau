@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import http from "../../http";
 import { IPaginacao } from "../../interfaces/IPaginacao";
 import IRestaurante from "../../interfaces/IRestaurante";
 import style from "./ListaRestaurantes.module.scss";
@@ -10,7 +10,7 @@ const ListaRestaurantes = () => {
   const [proximaPagina, setProximaPagina] = useState<string>("");
 
   useEffect(() => {
-    axios
+    http
       .get<IPaginacao<IRestaurante>>(
         "http://localhost:8000/api/v1/restaurantes/",
       )
@@ -24,7 +24,7 @@ const ListaRestaurantes = () => {
   }, []);
 
   const verMais = () => {
-    axios
+    http
       .get<IPaginacao<IRestaurante>>(proximaPagina)
       .then((res) => {
         setRestaurantes([...restaurantes, ...res.data.results]);
